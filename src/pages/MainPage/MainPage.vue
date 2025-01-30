@@ -6,9 +6,9 @@ const drag = ref(false);
 const draggedItem = ref(null); // Track the dragged item
 
 const items = ref([
-  { id: 1, path: "../../assets/images/Item-image-green.png" },
-  { id: 2, path: "../../assets/images/Item-image-orange.png" },
-  { id: 3, path: "../../assets/images/Item-image-purple.png" },
+  { id: 1, path: "Item-image-green.png" },
+  { id: 2, path: "Item-image-orange.png" },
+  { id: 3, path: "Item-image-purple.png" },
   { id: 4, path: "" },
   { id: 5, path: "" },
   { id: 6, path: "" },
@@ -81,8 +81,11 @@ watch(
             <li
               class="inventory__box-item"
             >
-            <img :src="`${element?.path}`" v-show="element?.path" alt="asd" class="inventory__box-item--img">
-            </li>
+            <img :src="`src/assets/images/${element?.path}`" v-show="element?.path" alt="asd" class="inventory__box-item--img">
+            
+            <span class="inventory__box-item--counter">4</span>
+            
+        </li>
           </template>
         </draggable>
       </div>
@@ -91,7 +94,9 @@ watch(
 
   <footer class="footer">
     <div class="container">
-      <div class="footer__skeleton"></div>
+        <div class="footer__skeleton">
+            <img src="../../assets/images/Skeleton.png" alt="" class="footer__skeleton-img">
+        </div>
     </div>
   </footer>
 </template>
