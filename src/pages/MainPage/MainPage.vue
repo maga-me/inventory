@@ -3,7 +3,8 @@ import { ref, watch } from "vue";
 import draggable from "vuedraggable";
 import ItemVue from "../../components/Item/Item.vue";
 import ModalVue from "../../components/Modal/Modal.vue";
-
+const modalItemId = ref(null)
+const filteredItem = ref('')
 const items = ref([
   { id: 1, path: "Item-image-green.png", amount: 4 },
   { id: 2, path: "Item-image-orange.png", amount: 3 },
@@ -55,8 +56,13 @@ const onDragChange = (event) => {
   }
 };
 
-const openModal = (itemId) => {
-  console.log(itemId)
+const openCloseModal = (itemId) => {
+  modalItemId.value = itemId
+
+  filteredItem.value = items.value.find(item => itemId === item.id);
+console.log(filteredItem.value);
+
+
 }
 
 watch(dragState, (newState) => {
@@ -96,17 +102,16 @@ watch(dragState, (newState) => {
         >
 
           <template #item="{ element }">
-            <ItemVue :item="element" @itemIdForModal="openModal" />
+            <ItemVue :item="element" :modalItemId="modalItemId" @itemIdForModal="openCloseModal" />
           </template>
 
         </draggable>
 
-        <ModalVue />
+        <ModalVue :item="filteredItem"  :class="{active: modalItemId }" @closeModal="openCloseModal" />
 
         </div>
       </div>
   </section>
-  {{items}}
 
   <footer class="footer">
     <div class="container">

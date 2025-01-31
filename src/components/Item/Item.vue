@@ -6,12 +6,17 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  modalItemId: {
+    type: Number,
+    required: true
+  }
 });
 
 const isClicked = ref(false);
 
 const clickedItem = (el) => {
-    isClicked.value = !isClicked.value;
+  
+    isClicked.value = true;
 
     const cards = document.querySelectorAll('.inventory__box-item');
     
