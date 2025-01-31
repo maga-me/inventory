@@ -31,7 +31,7 @@ const openOptions = (com) => {
       />
     </button>
     <img
-      :src="`src/assets/images/${item.path}`"
+      :src="`src/assets/images/${item?.path}`"
       alt=""
       class="modalCard__img"
     />

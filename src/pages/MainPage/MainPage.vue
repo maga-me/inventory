@@ -107,7 +107,7 @@ watch(dragState, (newState) => {
 
         </draggable>
 
-        <ModalVue :item="filteredItem"  :class="{active: modalItemId }" @closeModal="openCloseModal" />
+        <ModalVue :item="filteredItem"  :class="{active: modalItemId == null ? false : true }" @closeModal="openCloseModal" />
 
         </div>
       </div>
