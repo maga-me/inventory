@@ -31,15 +31,14 @@ const items = ref([
   { id: 23, path: "", amount: 0 },
   { id: 24, path: "", amount: 0 },
   { id: 25, path: "", amount: 0 },
-]); // Your array of items
+]); 
 
-// Track indexes instead of IDs
+
 const dragState = ref({
   originalIndex: -1,
   newIndex: -1
 });
 
-// Handle drag changes
 const onDragChange = (event) => {
   if (event.moved) {
     dragState.value = {
