@@ -1,53 +1,71 @@
 <script setup>
 import { ref, watch } from "vue";
 import draggable from "vuedraggable";
-
-const drag = ref(false);
-const draggedItem = ref(null); // Track the dragged item
+import ItemVue from "../../components/Item/Item.vue";
+import ModalVue from "../../components/Modal/Modal.vue";
 
 const items = ref([
-  { id: 1, path: "Item-image-green.png" },
-  { id: 2, path: "Item-image-orange.png" },
-  { id: 3, path: "Item-image-purple.png" },
-  { id: 4, path: "" },
-  { id: 5, path: "" },
-  { id: 6, path: "" },
-  { id: 7, path: "" },
-  { id: 8, path: "" },
-  { id: 9, path: "" },
-  { id: 10, path: "" },
-  { id: 11, path: "" },
-  { id: 12, path: "" },
-  { id: 13, path: "" },
-  { id: 14, path: "" },
-  { id: 15, path: "" },
-  { id: 16, path: "" },
-  { id: 17, path: "" },
-  { id: 18, path: "" },
-  { id: 19, path: "" },
-  { id: 20, path: "" },
-  { id: 21, path: "" },
-  { id: 22, path: "" },
-  { id: 23, path: "" },
-  { id: 24, path: "" },
-  { id: 25, path: "" },
-]);
+  { id: 1, path: "Item-image-green.png", amount: 4 },
+  { id: 2, path: "Item-image-orange.png", amount: 3 },
+  { id: 3, path: "Item-image-purple.png", amount: 2 },
+  { id: 4, path: "", amount: 0 },
+  { id: 5, path: "", amount: 0 },
+  { id: 6, path: "", amount: 0 },
+  { id: 7, path: "", amount: 0 },
+  { id: 8, path: "", amount: 0 },
+  { id: 9, path: "", amount: 0 },
+  { id: 10, path: "", amount: 0 },
+  { id: 11, path: "", amount: 0 },
+  { id: 12, path: "", amount: 0 },
+  { id: 13, path: "", amount: 0 },
+  { id: 14, path: "", amount: 0 },
+  { id: 15, path: "", amount: 0 },
+  { id: 16, path: "", amount: 0 },
+  { id: 17, path: "", amount: 0 },
+  { id: 18, path: "", amount: 0 },
+  { id: 19, path: "", amount: 0 },
+  { id: 20, path: "", amount: 0 },
+  { id: 21, path: "", amount: 0 },
+  { id: 22, path: "", amount: 0 },
+  { id: 23, path: "", amount: 0 },
+  { id: 24, path: "", amount: 0 },
+  { id: 25, path: "", amount: 0 },
+]); // Your array of items
 
-const onDragStart = (event) => {
-  draggedItem.value = event.item.id; // Track the dragged item ID
-};
+// Track indexes instead of IDs
+const dragState = ref({
+  originalIndex: -1,
+  newIndex: -1
+});
 
-const onDragEnd = () => {
-    console.log("asdasd");
-};
+// Handle drag changes
+const onDragChange = (event) => {
+  if (event.moved) {
+    dragState.value = {
+      originalIndex: event.moved.oldIndex,
+      newIndex: event.moved.newIndex
+    };
 
-// Deep watcher to capture changes in order
-watch(
-  items,
-  (newItems) => {
-    console.log("Watcher triggered. Updated positions:", newItems);
+    for (let i = 0; i < items.length; i++) {
+      
+    }
+    
+    console.log("Moved item ID:", items.value[event.moved.newIndex].id);
+    console.log("From index:", event.moved.oldIndex, "to:", event.moved.newIndex);
   }
-);
+};
+
+const openModal = (itemId) => {
+  console.log(itemId)
+}
+
+watch(dragState, (newState) => {
+  if (newState.originalIndex === -1) return;
+  
+  const movedItem = items.value[newState.newIndex];
+  console.log(`Item ${movedItem.id} moved from 
+    position ${newState.originalIndex} to ${newState.newIndex}`);
+});
 </script>
 
 <template>
@@ -73,30 +91,36 @@ watch(
           tag="ul"
           name="flip-list"
           :swap-threshold="0.5"
-          @start="onDragStart"
-          @end="onDragEnd"
+          @change="onDragChange"
           item-key="id"
         >
+
           <template #item="{ element }">
-            <li
-              class="inventory__box-item"
-            >
-            <img :src="`src/assets/images/${element?.path}`" v-show="element?.path" alt="asd" class="inventory__box-item--img">
-            
-            <span class="inventory__box-item--counter">4</span>
-            
-        </li>
+            <ItemVue :item="element" @itemIdForModal="openModal" />
           </template>
+
         </draggable>
+
+        <ModalVue />
+
+        </div>
       </div>
-    </div>
   </section>
+  {{items}}
 
   <footer class="footer">
     <div class="container">
-        <div class="footer__skeleton">
-            <img src="../../assets/images/Skeleton.png" alt="" class="footer__skeleton-img">
-        </div>
+      <div class="footer__skeleton">
+        <img
+          src="../../assets/images/Skeleton.png"
+          alt=""
+          class="footer__skeleton-img"
+        />
+
+        <button class="footer__skeleton-close">
+          <img src="../../assets/images/close-icon.svg" alt="" />
+        </button>
+      </div>
     </div>
   </footer>
 </template>

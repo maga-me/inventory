@@ -33,7 +33,6 @@
       height: 50%;
       -webkit-user-drag: none;
       animation: skeleton 2s infinite;
-
     }
   }
 
@@ -45,107 +44,119 @@
     border: 1px solid #4d4d4d;
     overflow: hidden;
     border-radius: 12px;
-    
+    position: relative;
+
     &-row {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(70px, 0.2fr));
-        justify-content: center;
-        align-content: center;
-
+      display: grid;
+      grid-template-columns: repeat(5, minmax(70px, 0.2fr));
+      justify-content: center;
+      align-content: center;
     }
-    
+
     &-item {
-        width: 100%; 
-        aspect-ratio: 1 / 1; 
-        background: #262626; 
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #262626;
+      border: 1px solid #4d4d4d;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: 300ms;
+
+      &:hover,
+      &.active {
+        background: #2f2f2f;
+      }
+
+      &--img {
+        width: 50%;
+        height: 50%;
+      }
+
+      &--counter {
         border: 1px solid #4d4d4d;
-        cursor: pointer;
+        color: #929292;
+        font-size: 12px;
+        font-weight: 500;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        // padding: 8px;
+        border-radius: 6px 0 0 0;
+        height: 24px;
+        width: 24px;
         display: flex;
-        justify-content: center;
         align-items: center;
-        position: relative;
+        justify-content: center;
+      }
 
-        &--img {
-            width: 50%;
-            height: 50%;
-        }
+      &:nth-of-type(1) {
+        border-radius: 12px 0 0 0;
+      }
+      &:nth-of-type(5) {
+        border-radius: 0 12px 0 0;
+      }
+      &:nth-last-of-type(1) {
+        border-radius: 0 0 12px 0;
+      }
+      &:nth-last-of-type(5) {
+        border-radius: 0 0 0 12px;
+      }
 
-        &--counter {
-            border: 1px solid #4d4d4d;
-            color: #929292;
-            font-size: 12px;
-            font-weight: 500;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            // padding: 8px;
-            border-radius: 6px 0 0 0 ;
-            height: 24px;
-            width: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        &:hover {
-            background: #2F2F2F;
-            transition: 250ms;
-        }
-
-        &:nth-of-type(1) {
-            border-radius: 12px 0 0 0;
-        }
-        &:nth-of-type(5) {
-            border-radius: 0 12px 0 0;
-        }
-        &:nth-last-of-type(1) {
-            border-radius: 0 0 12px 0;
-        }
-        &:nth-last-of-type(5) {
-            border-radius: 0 0 0 12px;
-        }
-
-        &.ghost-item {
-            opacity: 1;
-            background: #000;
-            border-radius: 12px;
-          }
-          
+      &.ghost-item {
+        opacity: 1;
+        background: #000;
+        border-radius: 12px;
+      }
     }
   }
 }
 
 .footer {
+  .container {
+  }
 
-    .container {
-        
-    }
+  &__skeleton {
+    height: 72px;
+    width: 100%;
+    background: #262626;
+    border: 1px solid #4d4d4d;
+    border-radius: 12px;
+    padding: 16px;
+    position: relative;
     
-    &__skeleton {
-      height: 72px;
-      width: 100%;
-      background: #262626;
-      border: 1px solid #4d4d4d;
-      border-radius: 12px;
-      padding: 16px;
-        animation: skeleton 2s infinite;
-      &-img {
-          width: calc(100% - 100px);
-          height: 100%;
-      }
+    &-img {
+      width: calc(100% - 100px);
+      height: 100%;
+      animation: skeleton 2s infinite;
+    }
+
+    &-close {
+      padding: 6px;
+      outline: none;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      position: absolute;
+      top: 6px;
+      right: 6px;
+    }
+
   }
 }
 
 @keyframes skeleton {
-    0% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 1;
+  }
 
-    50% {
-        opacity: 0.5;
-    }
+  50% {
+    opacity: 0.5;
+  }
 
-    100% {
-        opacity: 1;
-    }
+  100% {
+    opacity: 1;
+  }
 }
